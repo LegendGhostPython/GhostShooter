@@ -12,7 +12,7 @@ class TiroInimigo {
     }
     update() {
     
-    this.posY += (Math.random()*5.0)+this.vel * this.dY;
+    this.posY += 10+this.vel * this.dY;
             
             
     }

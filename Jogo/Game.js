@@ -7,6 +7,7 @@ var cima = document.getElementById("cima")
 var baixo = document.getElementById("baixo")
 var x = document.getElementById("x");
 var jaAtirou = false
+var key = ''
 const teclado = {
     dE: false,
     dD: false,
@@ -130,6 +131,27 @@ function Atualiza() {
         teclado.dB = true;
 
     })
+    document.onkeydown = function(evt){
+                console.log(processar(evt))
+                if(processar(evt) == "KeyA"){
+                    teclado.dE = true;
+                }
+                if(processar(evt) == "KeyD"){
+                    teclado.dD = true
+                }
+                if(processar(evt) == "KeyW"){
+                    teclado.dC = true
+                }
+                if(processar(evt) == "KeyS"){
+                    teclado.dB = true
+                }
+                if(processar(evt) == "KeySpace" || processar(evt) == "KeyK"){
+                    
+                }
+}
+ function processar(key){
+    return key.code
+ }
     //ações da nave
     x.addEventListener("click", ()=> {
          // Definimos quantos tiros queremos disparar por clique (ex: 3)
