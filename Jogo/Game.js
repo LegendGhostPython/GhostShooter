@@ -65,7 +65,6 @@ var inimigo = new Enemy(ctx,dadosI)
 //desenhar
 function desenhar() {
     meustiros.forEach(t => t.draw());
-    tiroinimigo.forEach(n => n.draw())
     p.draw()
     inimigo.draw()
     ctx.save()
@@ -91,27 +90,6 @@ function Atualiza() {
         t.posX >= 0 && 
         t.posX <= c.width
     );
-    tiroinimigo.forEach(n=> n.update())
-   tiroinimigo = tiroinimigo.filter(n=>
-   n.posY >= 0 &&
-   n.posY <= c.height &&
-   n.posX >= 0 &&
-   n.posX <= c.width);
-   
-   if(s% 5===0 && !jaAtirou){
-       for(let j=0; j < dadosI.tirosPorVez;j++){
-           let inimigoT = new TiroInimigo(ctx,tiroI,inimigo)
-            if(tiroinimigo.length < 10){
-               tiroinimigo.push(inimigoT)
-            
-                console.log("Tiro criado em:", inimigoT.posX, inimigoT.posY);
-           }
-        }
-        jaAtirou = true
-   }
-   if( s % 5 != 0){
-       jaAtirou = false
-   }
     
 }    
     //controla personagem
