@@ -7,8 +7,8 @@ class Player {
         this.posX = (p.posX/2) - (p.largura/2)
         this.posY = p.posY||(this.ctx.canvas.height - this.altura - 20);
         this.vel = p.vel
-      //  this.nave= new Image()
-       // this.nave.src = "Nave.png"
+    /*  this.nave= new Image()
+      this.nave.src = "Nave.png"*/
     }
     update() {
         if (this.teclado.dD) {
@@ -47,10 +47,10 @@ class Player {
         
     
     draw() {
-       /* if (this.nave.complete) { // Garante que a imagem está carregada
+      /*  if (this.nave.complete) { // Garante que a imagem está carregada
             this.ctx.drawImage(this.nave, this.posX, this.posY, this.largura, this.altura);
-        }*/// else {
-            // Placeholder caso a imagem demore a carregar
+        }else {
+          */  // Placeholder caso a imagem demore a carregar
             this.ctx.fillStyle = "red";
             this.ctx.fillRect(this.posX, this.posY, this.largura, this.altura);    }
 //}

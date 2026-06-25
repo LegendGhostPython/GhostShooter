@@ -1,0 +1,13 @@
+body{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+button#direita{
+    background: red;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    top: -500px;
+}

@@ -1,0 +1,42 @@
+body{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+button#direita{
+    background: red;
+    height: 50px;
+    position: relative;
+    top: 100px;
+    left:130px;
+}
+button#cima{
+    background: green;
+    height: 50px;
+    position: relative;
+    top: 50px;
+    left: -48px;
+}
+button#baixo{
+    background: blue;
+    height: 50px;
+    position: relative;
+    top: 150px;
+    left: -100px;
+}
+button#esquerda{
+    background: pink;
+    height: 50px;
+    position: relative;
+    top:100px;
+    left:-44px;
+}
+button#x{
+    background: yellow;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: 150px;
+    left: 50px;
+}
