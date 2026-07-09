@@ -8,6 +8,7 @@ var baixo = document.getElementById("baixo")
 var x = document.getElementById("x");
 var jaAtirou = false
 var key = ''
+var DeltaTime = 1
 const teclado = {
     dE: false,
     dD: false,
@@ -15,25 +16,25 @@ const teclado = {
     dB: false
 }
 const tiro = {
-    vel:1,
-   posX: 0,
-   posY: 0,
+    vel: 1,
+    posX: 0,
+    posY: 0,
     quantidade: 30,
     altura: 10,
     largura: 5,
     cor: "green",
-    dY:-1
+    dY: -1
 
 }
 const tiroI = {
-    vel:1,
-   posX: 0,
-   posY: 0,
+    vel: 1,
+    posX: 0,
+    posY: 0,
     quantidade: 30,
     altura: 10,
     largura: 5,
     cor: "red",
-    dY:-1
+    dY: -1
 
 }
 const dadosP = {
@@ -41,30 +42,32 @@ const dadosP = {
     posX: 100,
     posY: 100,
     vel: 15,
-    largura:50,
-    altura:50,
-    dY:-1
+    largura: 50,
+    altura: 50,
+    dY: -1
 
 }
 
-const dadosI={
-    posX:0,
-    posY:0,
-    vel: Math.random() * 10 + 2, // Velocidade entre 2 e 7
-    largura:50,
-    altura:50,
-    cor:"red",
-    tirosPorVez:2
-    
+const dadosI = {
+    posX: 0,
+    posY: 0,
+    vel: Math.random() * 10 + 2,
+    // Velocidade entre 2 e 7
+    largura: 50,
+    altura: 50,
+    cor: "red",
+    tirosPorVez: 2
+
 }
-var meustiros=[]
-var tiroinimigo=[]
+var meustiros = []
+var tiroinimigo = []
 //cria Objetos/Pré carregamento
 var p = new Player(ctx, teclado, dadosP);
-var inimigo = new Enemy(ctx,dadosI)
+var inimigo = new Enemy(ctx, dadosI)
 //desenhar
 function desenhar() {
     meustiros.forEach(t => t.draw());
+    tiroinimigo.forEach(ti => ti.draw());
     p.draw()
     inimigo.draw()
     ctx.save()
@@ -79,81 +82,89 @@ function Atualiza() {
     let s = d.getSeconds()
     p.update()
     inimigo.update()
-    
     meustiros.forEach(t => t.update());
-    
-    
+
+
     // Mantém no array apenas os tiros que estão dentro da tela
-    meustiros = meustiros.filter(t => 
-        t.posY >= 0 && 
-        t.posY <= c.height && 
-        t.posX >= 0 && 
+    meustiros = meustiros.filter(t =>
+        t.posY >= 0 &&
+        t.posY <= c.height &&
+        t.posX >= 0 &&
         t.posX <= c.width
     );
-    
-}    
-    //controla personagem
-    direita.addEventListener("click", ()=> {
-        teclado.dD = true;
-
-    })
-    esquerda.addEventListener("click", ()=> {
-        teclado.dE = true;
-
-    })
-    cima.addEventListener("click", ()=> {
-        teclado.dC = true;
-
-    })
-    baixo.addEventListener("click", ()=> {
-        teclado.dB = true;
-
-    })
-    document.onkeydown = function(evt){
-                console.log(processar(evt))
-                if(processar(evt) == "KeyA"){
-                    teclado.dE = true;
-                }
-                if(processar(evt) == "KeyD"){
-                    teclado.dD = true
-                }
-                if(processar(evt) == "KeyW"){
-                    teclado.dC = true
-                }
-                if(processar(evt) == "KeyS"){
-                    teclado.dB = true
-                }
-                if(processar(evt) == "KeySpace" || processar(evt) == "KeyK"){
-                    
-                }
+    tiroinimigo = tiroinimigo.filter(ti => ti.posY>= 0 && ti.posY <= c.height && ti.posX >= 0 && ti.posX <= c.width)
+    DeltaTime++
+    let FrameRand = 10
+   // FrameRand += Math.random()*10 
+    if(DeltaTime % FrameRand == 0){
+       const tiinimigo = new TiroInimigo(ctx,tiroI,dadosI)
+        tiroinimigo.push(tiinimigo)
+        tiroinimigo.forEach(ti => ti.update())
 }
- function processar(key){
+}
+//controla personagem
+direita.addEventListener("click", ()=> {
+    teclado.dD = true;
+
+})
+esquerda.addEventListener("click", ()=> {
+    teclado.dE = true;
+
+})
+cima.addEventListener("click", ()=> {
+    teclado.dC = true;
+
+})
+baixo.addEventListener("click", ()=> {
+    teclado.dB = true;
+
+})
+document.onkeydown = function(evt) {
+    console.log(processar(evt))
+    if (processar(evt) == "KeyA") {
+        teclado.dE = true;
+    }
+    if (processar(evt) == "KeyD") {
+        teclado.dD = true
+    }
+    if (processar(evt) == "KeyW") {
+        teclado.dC = true
+    }
+    if (processar(evt) == "KeyS") {
+        teclado.dB = true
+    }
+    if (processar(evt) == "KeySpace" || processar(evt) == "KeyK") {}
+}
+function processar(key) {
     return key.code
- }
-    //ações da nave
-    x.addEventListener("click", ()=> {
-         // Definimos quantos tiros queremos disparar por clique (ex: 3)
+}
+//ações da nave
+x.addEventListener("click", ()=> {
+    // Definimos quantos tiros queremos disparar por clique (ex: 3)
     const tirosPorVez = 3;
 
     for (let i = 0; i < tirosPorVez; i++) {
-        let novoTiro = new Tiro(ctx,tiro,p)
+        let novoTiro = new Tiro(ctx, tiro, p)
         // Só adiciona se o total disparado for menor que a quantidade total permitida
         if (meustiros.length < tiro.quantidade) {
             meustiros.push(novoTiro);
 
         }
     }
-    
-    })
+
+})
 
 function Game() {
     //limpa canvas
-    ctx.clearRect(0, 0, c.width, c.height)
+    ctx.clearRect(0,
+        0,
+        c.width,
+        c.height)
 
 
     //Atualiza posições e estados de Objetos
     Atualiza()
-        //desenha Objetos
+    //desenha Objetos
     desenhar()
     /*frames game*/
     window.requestAnimationFrame(Game)
