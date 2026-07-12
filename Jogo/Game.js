@@ -8,6 +8,7 @@ var baixo = document.getElementById("baixo")
 var x = document.getElementById("x");
 var jaAtirou = false
 var key = ''
+var FrameRand = Math.floor(10+ Math.random() * 100) / 2
 var DeltaTime = 1
 const teclado = {
     dE: false,
@@ -26,17 +27,7 @@ const tiro = {
     dY: -1
 
 }
-const tiroI = {
-    vel: 1,
-    posX: 0,
-    posY: 0,
-    quantidade: 30,
-    altura: 10,
-    largura: 5,
-    cor: "red",
-    dY: -1
 
-}
 const dadosP = {
     teclado: teclado,
     posX: 100,
@@ -57,6 +48,17 @@ const dadosI = {
     altura: 50,
     cor: "red",
     tirosPorVez: 2
+
+}
+const tiroI = {
+    vel: 20,
+    posX: 0,
+    posY: 0,
+    quantidade: 30,
+    altura: 10,
+    largura: 5,
+    cor: "red",
+    dY: -1,
 
 }
 var meustiros = []
@@ -94,13 +96,13 @@ function Atualiza() {
     );
     tiroinimigo = tiroinimigo.filter(ti => ti.posY>= 0 && ti.posY <= c.height && ti.posX >= 0 && ti.posX <= c.width)
     DeltaTime++
-    let FrameRand = 10
+    console.log(FrameRand)
    // FrameRand += Math.random()*10 
     if(DeltaTime % FrameRand == 0){
-       const tiinimigo = new TiroInimigo(ctx,tiroI,dadosI)
+       const tiinimigo = new TiroInimigo(ctx,tiroI,inimigo)
         tiroinimigo.push(tiinimigo)
         tiroinimigo.forEach(ti => ti.update())
-}
+    }
 }
 //controla personagem
 direita.addEventListener("click", ()=> {
