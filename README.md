@@ -4,5 +4,5 @@ tendo em base um modelo retro, totalmente desenhado e desenvolvido por mim.
 
 Autor:Michel de Oliveira Silva 
 
-##alteracoes feitas v1.4
--alteracao do readme.md
+Versão: 1.8
+
