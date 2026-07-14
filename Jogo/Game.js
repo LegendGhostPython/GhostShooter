@@ -37,7 +37,8 @@ const dadosP = {
     vel: 15,
     largura: 50,
     altura: 50,
-    dY: -1
+    dY: -1,
+    vida:100
 
 }
 
@@ -83,6 +84,7 @@ var part = []
 //cria Objetos/Pré carregamento
 var p = new Player(ctx, teclado, dadosP);
 var inimigo = new Enemy(ctx, dadosI)
+var vidaB = new Life(ctx, dadosP)
 //var stars = new Particles(ctx,efeito.stars)
 //desenhar
 function desenhar() {
@@ -93,15 +95,20 @@ function desenhar() {
     part.forEach(Stars => Stars.draw())
     meustiros.forEach(t => t.draw());
     tiroinimigo.forEach(ti => ti.draw());
+
+        
     p.draw()
     inimigo.draw()
+    vidaB.draw()
     
-    ctx.save()
+    /*ctx.save()
     ctx.fillStyle = "blue"; // Ou a cor que preferir
     ctx.font = "20px Arial";
     ctx.fillText("Tiros na tela: " + meustiros.length, 10, 30);
     ctx.fillText("Tiros na tela: " + tiroinimigo.length, 10, 50);
-    ctx.restore()
+    ctx.restore()*/
+    
+    
 }
 function Atualiza() {
     let d = new Date()
@@ -202,7 +209,6 @@ function Game() {
         0,
         c.width,
         c.height)
-
 
     //Atualiza posições e estados de Objetos
     Atualiza()
