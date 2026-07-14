@@ -4,5 +4,5 @@ tendo em base um modelo retro, totalmente desenhado e desenvolvido por mim.
 
 Autor:Michel de Oliveira Silva 
 
-Versão: 1.8.0
+Versão: 1.8.5
 
