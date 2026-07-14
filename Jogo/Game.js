@@ -10,6 +10,8 @@ var jaAtirou = false
 var key = ''
 var FrameRand = Math.floor(10+ Math.random() * 100) / 2
 var DeltaTime = 1
+var space = new Image()
+space.src="Espaço.png"
 const teclado = {
     dE: false,
     dD: false,
@@ -61,17 +63,39 @@ const tiroI = {
     dY: -1,
 
 }
+const efeito={
+    stars:{
+        color:"white",
+        posX:Math.random()*c.width,
+        posY:0,
+        largura:10,
+        altura:10,
+        vel:0.01,
+        dY:1,
+        dX:1,
+        quantidade:30
+    }
+}
+
 var meustiros = []
 var tiroinimigo = []
+var part = []
 //cria Objetos/Pré carregamento
 var p = new Player(ctx, teclado, dadosP);
 var inimigo = new Enemy(ctx, dadosI)
+//var stars = new Particles(ctx,efeito.stars)
 //desenhar
 function desenhar() {
+
+    if(space.complete){
+        ctx.drawImage(space,0,0,400,200)
+    }
+    
     meustiros.forEach(t => t.draw());
     tiroinimigo.forEach(ti => ti.draw());
     p.draw()
     inimigo.draw()
+    part.forEach(Stars => Stars.draw())
     ctx.save()
     ctx.fillStyle = "blue"; // Ou a cor que preferir
     ctx.font = "20px Arial";
@@ -86,7 +110,9 @@ function Atualiza() {
     inimigo.update()
     meustiros.forEach(t => t.update());
 
-
+    /*if(part.length >  efeito.stars.quantidade){
+        part.splice(-1,1)
+    }*/
     // Mantém no array apenas os tiros que estão dentro da tela
     meustiros = meustiros.filter(t =>
         t.posY >= 0 &&
@@ -94,6 +120,7 @@ function Atualiza() {
         t.posX >= 0 &&
         t.posX <= c.width
     );
+    
     tiroinimigo = tiroinimigo.filter(ti => ti.posY>= 0 && ti.posY <= c.height && ti.posX >= 0 && ti.posX <= c.width)
     DeltaTime++
     console.log(FrameRand)
@@ -101,8 +128,22 @@ function Atualiza() {
     if(DeltaTime % FrameRand == 0){
        const tiinimigo = new TiroInimigo(ctx,tiroI,inimigo)
         tiroinimigo.push(tiinimigo)
-        tiroinimigo.forEach(ti => ti.update())
+        
     }
+    tiroinimigo.forEach(ti => ti.update())
+   // if(DeltaTime % 100 == 0){
+       part = part.filter(parti => parti.posY >= 0 && parti.posY <= c.height)
+       if(DeltaTime % 100 == 0){
+      if(part.length < efeito.stars.quantidade){
+       const Stars = new Particles(ctx,efeito.stars)
+        part.push(Stars)
+       }
+       }
+        part.forEach(p => p.update())
+        console.log(part)
+       
+  //  }
+    
 }
 //controla personagem
 direita.addEventListener("click", ()=> {

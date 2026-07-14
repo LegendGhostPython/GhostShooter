@@ -5,8 +5,8 @@ class Enemy {
         this.altura = p.altura
         this.cor = p.cor
         this.vel = 1
-        this.posX = p.posX || 0
-        this.posY = p.posY || 0
+        this.posX = p.posX || 0 
+        this.posY = p.posY || 0 
         this.dX = 1
         this.img = new Image()
         this.img.src = "nave1.png"
