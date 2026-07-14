@@ -8,7 +8,7 @@ var baixo = document.getElementById("baixo")
 var x = document.getElementById("x");
 var jaAtirou = false
 var key = ''
-var FrameRand = Math.floor(10+ Math.random() * 100) / 2
+var FrameRand = Math.floor(10+ Math.random() * 1000) / 2
 var DeltaTime = 1
 var space = new Image()
 space.src="Espaço.png"
@@ -53,7 +53,7 @@ const dadosI = {
 
 }
 const tiroI = {
-    vel: 20,
+    vel: 50,
     posX: 0,
     posY: 0,
     quantidade: 30,
@@ -66,11 +66,11 @@ const tiroI = {
 const efeito={
     stars:{
         color:"white",
-        posX:Math.random()*c.width,
+        posX:0,
         posY:0,
         largura:10,
         altura:10,
-        vel:0.01,
+        vel:1,
         dY:1,
         dX:1,
         quantidade:30
@@ -90,12 +90,12 @@ function desenhar() {
     if(space.complete){
         ctx.drawImage(space,0,0,400,200)
     }
-    
+    part.forEach(Stars => Stars.draw())
     meustiros.forEach(t => t.draw());
     tiroinimigo.forEach(ti => ti.draw());
     p.draw()
     inimigo.draw()
-    part.forEach(Stars => Stars.draw())
+    
     ctx.save()
     ctx.fillStyle = "blue"; // Ou a cor que preferir
     ctx.font = "20px Arial";
@@ -123,7 +123,6 @@ function Atualiza() {
     
     tiroinimigo = tiroinimigo.filter(ti => ti.posY>= 0 && ti.posY <= c.height && ti.posX >= 0 && ti.posX <= c.width)
     DeltaTime++
-    console.log(FrameRand)
    // FrameRand += Math.random()*10 
     if(DeltaTime % FrameRand == 0){
        const tiinimigo = new TiroInimigo(ctx,tiroI,inimigo)
@@ -133,7 +132,7 @@ function Atualiza() {
     tiroinimigo.forEach(ti => ti.update())
    // if(DeltaTime % 100 == 0){
        part = part.filter(parti => parti.posY >= 0 && parti.posY <= c.height)
-       if(DeltaTime % 100 == 0){
+       if(DeltaTime % efeito.stars.quantidade == 0){
       if(part.length < efeito.stars.quantidade){
        const Stars = new Particles(ctx,efeito.stars)
         part.push(Stars)
