@@ -38,7 +38,9 @@ const dadosP = {
     largura: 50,
     altura: 50,
     dY: -1,
-    vida:100
+    vida:100,
+    posXb:-20,
+    posYb:-10
 
 }
 
@@ -50,11 +52,14 @@ const dadosI = {
     largura: 50,
     altura: 50,
     cor: "red",
-    tirosPorVez: 2
+    tirosPorVez: 2,
+    vida:100,
+    posXb:-20,
+    posYb:-20
 
 }
 const tiroI = {
-    vel: 50,
+    vel: 30,
     posX: 0,
     posY: 0,
     quantidade: 30,
@@ -77,14 +82,19 @@ const efeito={
         quantidade:30
     }
 }
+const Desenhos ={
+    coracao:{}
+}
 
 var meustiros = []
 var tiroinimigo = []
 var part = []
+var drawD =[]
 //cria Objetos/Pré carregamento
 var p = new Player(ctx, teclado, dadosP);
 var inimigo = new Enemy(ctx, dadosI)
-var vidaB = new Life(ctx, dadosP)
+var vidaB = new Life(ctx, dadosP,0,0,"pink","white")
+var vidaBi = new Life(ctx,dadosI,0,0,"blue","green")
 //var stars = new Particles(ctx,efeito.stars)
 //desenhar
 function desenhar() {
@@ -100,6 +110,7 @@ function desenhar() {
     p.draw()
     inimigo.draw()
     vidaB.draw()
+    vidaBi.draw()
     
     /*ctx.save()
     ctx.fillStyle = "blue"; // Ou a cor que preferir
@@ -115,8 +126,11 @@ function Atualiza() {
     let s = d.getSeconds()
     p.update()
     inimigo.update()
+    vidaB.posX = -20
+    vidaB.posY = 0
+    vidaBi.posX = 250
+    vidaBi.posY = 0
     meustiros.forEach(t => t.update());
-
     /*if(part.length >  efeito.stars.quantidade){
         part.splice(-1,1)
     }*/
@@ -146,10 +160,42 @@ function Atualiza() {
        }
        }
         part.forEach(p => p.update())
-        console.log(part)
+    
        
   //  }
-    
+meustiros.forEach((t, indexTiro) => {
+    // Checa se o tiro 't' encostou no 'inimigo'
+    const col1 = (t.posX < inimigo.posX + inimigo.largura &&
+        t.posX + t.largura > inimigo.posX &&
+        t.posY < inimigo.posY + inimigo.altura &&
+        t.posY + t.altura > inimigo.posY) 
+       if(col1) {
+        console.log("Inimigo atingido!");
+        
+        // 1. Remove o tiro da tela para ele não dar dano múltiplo
+        
+        meustiros.splice(indexTiro, 1);
+        vidaBi.vida--
+        if(vidaBi.vida <= 20){
+            vidaBi.vida = 20
+        }
+        // 2. Aqui você pode aplicar dano ao inimigo ou resetar a posição dele
+        // Exemplo: inimigo.resetarposicao(); (se você criar esse método na classe dele)
+       }
+        
+});
+tiroinimigo.forEach((ti,indexTi) => {
+    const col2 = (ti.posX < p.posX + p.largura && ti.posX + ti.largura > p.posX && ti.posY < p.posY + p.altura && ti.posY + ti.altura > p.posY)
+    if(col2){
+        console.log("player atingido")
+        tiroinimigo.splice(indexTi,1)
+        vidaB.vida--
+        if(vidaB.vida <= 20){
+            vidaB.vida = 20
+        }
+    }
+})
+
 }
 //controla personagem
 direita.addEventListener("click", ()=> {
