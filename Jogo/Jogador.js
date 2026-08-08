@@ -8,7 +8,7 @@ class Player {
         this.posY = p.posY || (this.ctx.canvas.height - this.altura - 20);
         this.vel = p.vel
         this.nave = new Image();
-        this.nave.src = "Nave.png"
+        this.nave.src = "nave1p.png"
     }
     update() {
         if (this.teclado.dD) {
