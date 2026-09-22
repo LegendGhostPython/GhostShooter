@@ -35,7 +35,7 @@ class Life{
         this.ctx.fillStyle = this.corV
         this.ctx.moveTo(30+this.posX+this.ajusteLargura,30+this.posY+this.ajusteAltura)
         this.ctx.lineTo(40+this.posX+this.ajusteLargura,20 + this.posY+this.ajusteAltura)
-        this.ctx.lineTo(this.vida+this.posX+this.ajusteLargura,20+this.posY+this.ajusteAltura)
+        this.ctx.lineTo(20+this.vida+this.posX+this.ajusteLargura,20+this.posY+this.ajusteAltura)
         this.ctx.lineTo(10+this.vida+this.posX+this.ajusteLargura,30+this.posY+this.ajusteAltura)
         this.ctx.closePath()
         this.ctx.fill()
