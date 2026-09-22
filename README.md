@@ -26,5 +26,5 @@ Hoje o projeto está tomando um novo rumo, com várias atualização como de par
 
 Autor:Michel de Oliveira Silva 
 
-Versão: 1.9.6
+Versão: 2.0
 
