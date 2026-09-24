@@ -9,22 +9,16 @@ Hoje o projeto está tomando um novo rumo, com várias atualização como de par
 -som ambiente
 -som do tiro da nave
 -som explosão do inimigo
--spawn inimigo
--morte do inimigo
--menu
 -menu de ranking
 -utilizacao de API para banco de dados podendo ser possível o compartilhamento de pontos forma local
 -compatibilidade com teclado
 -compatibilidade com mouse
 -menu de personalização
 -power-ups
--particulas
--efeito paralax
--chefão
 -novo inim
 
 
 Autor:Michel de Oliveira Silva 
 
-Versão: 1.9.6
+Versão: 2.0
 
